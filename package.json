@@ -9,7 +9,7 @@
     "server": "nodemon server.js"
   },
   "keywords": [],
-  "author": "Maxwel.Dev",
+  "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
