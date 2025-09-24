@@ -1,9 +1,10 @@
-import validator from 'validator'
+import validator from 'validator' // to validate the users emailm from the data base
 import bcrypt from "bcrypt";
 import userModel from '../models/userModel.js';
 import jwt from 'jsonwebtoken'
 
-//API to register user
+//API to register user to join our platform
+
 const registerUser = async (req, res) =>{
 
   try{
@@ -21,18 +22,25 @@ const registerUser = async (req, res) =>{
 
     //validating strong pasword
     if (password.length < 8) {
-      return res.json({success:false,message:"enter a strong password"})
+      return res.json({success:false,message:"You password must contain atleast 8 characters"})
     }
 
-    //hashing user password
+    const specialCharacterRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]+$/;
+
+    // checks if password contains any special character
+    if (!specialCharacterRegex.test(password)) {
+      return res.json({success: false,message: "you password must contain a special character",});
+    }
+
+    //hashing user password using bycrypt method
     const salt = await bcrypt.genSalt(10)
-    const hasshedPasswor = await bcrypt.hash(password,salt)
+    const hasshedPassword = await bcrypt.hash(password,salt)
 
 
     const userData = {
       name,
       email,
-      password:hasshedPasswor
+      password:hasshedPassword
     }
 
     const newUser = new userModel(userData);
@@ -52,7 +60,7 @@ const registerUser = async (req, res) =>{
 
 } 
 
-//API for user login
+//API for user login who has creted an account
 const loginUser = async (req,res) =>{
 
   try{
