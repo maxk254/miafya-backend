@@ -1,0 +1,1 @@
+// (check Reg Number, Updates status "pending"  verified)
