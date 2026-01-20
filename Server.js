@@ -16,10 +16,10 @@ app.use(express.json())
 app.use(cors())
 
 // api end point
-app.use('/api/admin',adminRouter)
+app.use('/api/admin',adminRouter);
 // localhost: 5000/api/admin
 
-app.use('/api/user',userRouter)
+app.use('/api/user',userRouter);
 //localhost:500/api/register
 
 app.use("/api/user", userRouter);
