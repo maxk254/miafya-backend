@@ -1,4 +1,4 @@
-/ mongodb.js
+// mongodb.js
 
 import mongoose from "mongoose"; //  importing mongoose
 
