@@ -1,1 +1,0 @@
-// (role) => (req, res, next) - stops patients from seeing admin routes

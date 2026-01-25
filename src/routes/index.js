@@ -1,2 +1,0 @@
-// Main router entry point
-

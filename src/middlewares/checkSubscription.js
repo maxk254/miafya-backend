@@ -1,1 +1,0 @@
-// stops booking if subscription is expired

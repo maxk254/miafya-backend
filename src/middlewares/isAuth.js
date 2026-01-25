@@ -1,1 +1,0 @@
-// checks for valid JWT

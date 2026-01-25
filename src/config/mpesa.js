@@ -1,1 +1,0 @@
-// safaricom payment configuration
