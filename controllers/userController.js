@@ -39,7 +39,7 @@ export const updataProfile = async (req, res) =>{
       {new: true, upsert:true, runValidators: true}
     );
 
-    // if also phone number is  added update it ton the base model
+    // if also phone number is  added update it to the base model
     if (phone) {
       await User.findByIdAndUpdate(req.user.id, {phone});
     }
