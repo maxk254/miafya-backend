@@ -48,11 +48,12 @@ export const register = async (req, res) => {
     });
 
     // create the specific profile based on role
+
     // professional
     if (newUser.role === 'professional') {
       // validate required professional fields
       if (!profileData.licenseNumber || !profileData.specialization) {
-        // cleanup : Delete the user if profile creation fails (Basic transaction logic)
+        // cleanup : Delete the user  data if profile creation fails (Basic transaction logic)
         await User.findByIdAndDelete(newUser._id);
         return res.status(400).json({error: 'Licence and specialization are required for professionals'});
       }
@@ -66,7 +67,8 @@ export const register = async (req, res) => {
     }
     // facility
     else if (newUser.role === 'facility') {
-      if (!profileData.facilityName) {
+      if (!profileData.facilityName ||profileData.faclityRegistrationNumber ) {
+        // delete facility data if profile creation fails
         await User.findByIdAndDelete(newUser._id);
         return res.status(400).json({error: 'Facility name is require'});
       }
@@ -74,6 +76,7 @@ export const register = async (req, res) => {
       await FacilityProfile.create({
         user: newUser._id,
         facilityName:profileData.facilityName,
+        faclityRegistrationNumber:profileData.faclityRegistrationNumber,
         facilityType: profileData.facilityType,
         location: profileData.location
       });
