@@ -10,7 +10,7 @@ const facilitySchema = new mongoose.Schema({
     unique: true
   },
   facilityName: {type: String, required: true},
-  faclityRegistrationNumber: {type: String, required: true},
+  facilityRegistrationNumber: {type: String, required: true},
   facilityType: {type: String }, // eg clinic, hospital, dispensarry , pharmacy
   location: {
     address: String,
