@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import validator from "validator";
 import User from '../models/User';
 import userProfile from '../models/userProfile';
-import ProfessionalProfile from '../models/professionalModel';
+import ProfessionalProfile from '../models/professionalProfile';
 import FacilityProfile from '../models/FacilityProfile';
 import { signAccessToken, signRefreshToken, verifyRefreshToken } from "../utils/jwt"
 
