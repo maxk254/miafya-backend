@@ -76,7 +76,7 @@ export const register = async (req, res) => {
       await FacilityProfile.create({
         user: newUser._id,
         facilityName:profileData.facilityName,
-        faclityRegistrationNumber:profileData.faclityRegistrationNumber,
+        facilityRegistrationNumber:profileData.faclityRegistrationNumber,
         facilityType: profileData.facilityType,
         location: profileData.location
       });
