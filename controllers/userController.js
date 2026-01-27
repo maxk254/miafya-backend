@@ -28,3 +28,23 @@ export const getUserProfile = async (req, res) => {
 };
 
 // update user profile 
+export const updataProfile = async (req, res) =>{
+  try {
+    const { dateOfBirth, gender, address, phone} = req.body;
+    // updates the profile model
+    // upsert true creates the profile if user had not entered these details
+    const profile = await userProfile.findOneAndUpdate(
+      {user: req.User.id},
+      {$set: {dateOfBirth, gender, address}},
+      {new: true, upsert:true, runValidators: true}
+    );
+
+    // if also phone number is  added update it ton the base model
+    if (phone) {
+      await User.findByIdAndUpdate(req.user.id, {phone});
+    }
+    res.json({message:"Profile Updated", profile});
+  } catch (error) {
+    res.status(500).json({error: "Server Error updating profile"})
+  }
+};
