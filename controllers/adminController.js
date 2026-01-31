@@ -5,6 +5,7 @@
 import User from "../models/User";
 import professionalProfile from "../models/professionalProfile";
 import FacilityProfile from "../models/FacilityProfile";
+import userProfile from "../models/userProfile";
 
 // get all stats (dashboard Overview)
 export const getStatus = async (req, res) =>{
@@ -68,5 +69,43 @@ export const rejectUser = async (req, res) => {
     res.json({ message: "User rejected and removed."})
   } catch (error) {
     res.status(500).json({error: "Server Error"})
+  }
+};
+
+// Get all users (filter by role) in the applications (admin controller)
+export const getAllUsers = async (req, res) => {
+  try {
+    const {role} = req.query; // filter by user role
+
+    const query = role ? { role } : {}; // if no role sent , we get everyone
+
+    const users = await User.find(query).select('-password'); // hides password no returning password
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Server Error"});
+  }
+};
+
+// Troubleshhoting users account function
+// Admin see everthing about the user
+export const getUserDetails = async (req, res) => {
+  try {
+    const user = await user.findById(req.params.id).select('-password');
+    if (!user) return res.status(404).json({ error: "User not found"});
+
+    let profile = null;
+
+    // fetch specific profile based on the role
+    if (user.role === 'professional') {
+      profile = await professionalProfile.findOne({user: user._id});
+    } else if (user.role === 'facility') {
+      profile = await FacilityProfile.findOne({ user: user._id});
+    } else {
+      profile = await userProfile.findOne({ user: user._id});
+    }
+
+    res.json({ user, profile});
+  } catch (error) {
+    res.status(500).json({ error: "Server Error"})
   }
 };
